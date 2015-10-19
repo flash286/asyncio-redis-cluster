@@ -144,7 +144,12 @@ class Pool:
             if not args:
                 raise Exception('You must specify an argument (FIXME)')
 
-            key = args[0]
+            if name == 'delete':
+                # Hot fix for delete with one key
+                key = args[0][0]
+            else:
+                key = args[0]
+
             host = self._get_host_by_key(key, is_read=is_read)
             connection = self._get_free_connection(host)
 
